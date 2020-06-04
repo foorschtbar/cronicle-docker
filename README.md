@@ -1,44 +1,61 @@
-# docker-cronicle
-[![Build status](https://img.shields.io/docker/build/intelliops/cronicle.svg)](https://hub.docker.com/r/intelliops/cronicle) [![Build status](https://img.shields.io/travis/belsander/docker-cronicle/master.svg)](https://travis-ci.org/belsander/docker-cronicle)
+# Cronicle Docker container #
+
+[
+  ![](https://img.shields.io/docker/v/foorschtbar/cronicle?style=plastic)
+  ![](https://img.shields.io/docker/pulls/foorschtbar/cronicle?style=plastic)
+  ![](https://img.shields.io/docker/stars/foorschtbar/cronicle?style=plastic)
+  ![](https://img.shields.io/docker/image-size/foorschtbar/cronicle?style=plastic)
+  ![](https://img.shields.io/docker/cloud/build/foorschtbar/cronicle?style=plastic)
+](https://hub.docker.com/repository/docker/foorschtbar/cronicle)
+[
+  ![](https://img.shields.io/github/last-commit/foorschtbar/pcronicle-docker?style=plastic)
+](https://github.com/foorschtbar/cronicle-docker)
+
 
 Docker container for a Cronicle single-server master node
 
-This image fixes a known issue with the intelliops/belsander image: https://github.com/belsander/docker-cronicle/issues/19
+* GitHub: [foorschtbar/cronicle-docker](https://github.com/foorschtbar/cronicle-docker)
+* Docker Hub: [foorschtbar/cronicle](https://hub.docker.com/r/foorschtbar/cronicle)
 
-# Supported tags
+## Usage ##
 
-* `latest`, `0.8.45`, [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
-* `latest-s3` , `0.8.45-s3`,[Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
+#Example docker-compose configuration:
 
-* `0.8.28` [Dockerfile](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile)
-* `0.8.28-s3` [Dockerfile.s3](https://raw.githubusercontent.com/belsander/docker-cronicle/master/Dockerfile.s3)
+```yml
+version: "3"
 
-## latest
-Latest version of Cronicle server based upon nodejs Docker image.
+services:
+  app:
+    image: foorschtbar/cronicle:latest
+    hostname: cronicle
+    container_name: cronicle-app
+    volumes:
+      - ./data/data:/opt/cronicle/data
+      - ./data/plugins:/opt/cronicle/plugins:ro
+    environment:
+      - CRONICLE_base_app_url=http://localhost:3012
+      - CRONICLE_smtp_hostname=cronicle-mail
+      - CRONICLE_email_from=<changeme>
+    # - CRONICLE_web_direct_connect=1
+    # - CRONICLE_socket_io_transports=polling
+    restart: unless-stopped
+    networks:
+      - internal
 
-## s3
-Same as the `latest` Docker image, but with support for Amazon S3 storage. If
-there is no need for S3, again, just go for `latest`.
+  mail:
+    image: bytemark/smtp
+    restart: unless-stopped
+    container_name: cronicle-mail
+    environment:
+      - MAILNAME=<changeme>
+    networks:
+      - internal
 
-# Usage
-
-## Install
-```sh
-docker pull nicholasamorim/cronicle:latest
+networks:
+  internal:
+    external: false
 ```
 
-## Running
-```sh
-docker run --name cronicle --hostname localhost -p 3012:3012 nicholasamorim/cronicle:latest
-```
-
-Alternatively with persistent data and logs:
-```sh
-docker run --name cronicle \
-  -v /path-to-cronicle-storage/data:/opt/cronicle/data:rw \
-  -v /path-to-cronicle-storage/logs:/opt/cronicle/logs:rw \
-  --hostname localhost -p 3012:3012 nicholasamorim/cronicle:latest
-```
 
 The web UI will be available at: http://localhost:3012
 
