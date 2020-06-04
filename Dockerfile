@@ -39,5 +39,4 @@ EXPOSE 3012
 VOLUME ["/opt/cronicle/data", "/opt/cronicle/logs", "/opt/cronicle/plugins"]
 
 ENTRYPOINT ["/sbin/tini", "--"]
-
 CMD ["sh", "/entrypoint.sh"]
