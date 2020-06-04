@@ -1,4 +1,4 @@
-# Cronicle Docker container #
+# Cronicle Docker container
 
 [
   ![](https://img.shields.io/docker/v/foorschtbar/cronicle?style=plastic)
@@ -8,18 +8,17 @@
   ![](https://img.shields.io/docker/cloud/build/foorschtbar/cronicle?style=plastic)
 ](https://hub.docker.com/repository/docker/foorschtbar/cronicle)
 [
-  ![](https://img.shields.io/github/last-commit/foorschtbar/pcronicle-docker?style=plastic)
+  ![](https://img.shields.io/github/last-commit/foorschtbar/cronicle-docker?style=plastic)
 ](https://github.com/foorschtbar/cronicle-docker)
-
 
 Docker container for a Cronicle single-server master node
 
 * GitHub: [foorschtbar/cronicle-docker](https://github.com/foorschtbar/cronicle-docker)
 * Docker Hub: [foorschtbar/cronicle](https://hub.docker.com/r/foorschtbar/cronicle)
 
-## Usage ##
+## Usage
 
-#Example docker-compose configuration:
+### Example docker-compose configuration:
 
 ```yml
 version: "3"
