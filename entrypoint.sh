@@ -35,6 +35,5 @@ then
   touch $DATA_DIR/.setup_done
 fi
 
-# Run cronicle with unprivileged user
-chown -R cronicle:cronicle data/ logs/
-exec su cronicle -c "/opt/cronicle/bin/control.sh start"
+# Run cronicle
+/usr/local/bin/node "$LIB_DIR/main.js"
